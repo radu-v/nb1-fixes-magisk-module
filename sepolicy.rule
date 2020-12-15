@@ -1,0 +1,2 @@
+allow vendor_ssr_diag { sysfs sysfs_data } file { open read }
+allow vendor_ssr_diag property_socket file { write }
