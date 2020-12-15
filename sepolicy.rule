@@ -1,2 +1,23 @@
+allow { adbd adbroot apexd audioserver bootstat boringssl_self_test bpfloader cameraserver credstore derive_sdk drmserver flags_health_check fsck fsverity_init gpuservice gsid hal_allocator_default hwservicemanager idmap incidentd installd iorapd keystore lmkd logd mediaextractor mediametrics mediaserver mediaswcodec netd otapreopt_slot recovery_persist recovery_refresh servicemanager statsd storaged surfaceflinger system_suspend tombstoned toolbox toolbox traced traced_probes tzdatacheck update_verifier usbd vdc vold vold_prepare_subdirs wificond zygote } gx_fpd_exec file { read getattr }
+allow { bootstat vold_prepare_subdirs installd migrate_legacy_obb_data } gx_fpd_exec file { read getattr }
+allow audio_sysfs sysfs filesystem { associate }
+allow dex2oat { gx_fpd_exec } file { read getattr }
+allow hal_audio_default { audio_sysfs } dir { search }
+allow hal_audio_default { sysfs } file { getattr }
+allow hal_graphics_composer_default { mnt_vendor_file } dir { getattr }
+allow qti_init_shell { proc_extra_free_kbytes sysfs_io_sched_tuneable } file { write }
+allow radio { qcom_ims_prop } file { open read getattr }
+allow rmt_storage { sysfs_data } file { open read }
+allow sensors { proc_fih } file { getattr read }
+allow thermal-engine { sysfs } file { open read }
+allow ueventd { audio_sysfs } dir { relabelto search }
+allow ueventd { audio_sysfs } file { relabelto }
+allow vendor_init { system_file } dir { add_name write }
+allow vendor_init { vendor_qvrd_data_file } dir { create getattr }
+allow vendor_ssr_diag { property_socket } file { write }
+allow vendor_ssr_diag { property_socket } sock_file { write }
 allow vendor_ssr_diag { sysfs sysfs_data } file { open read }
-allow vendor_ssr_diag property_socket file { write }
+allow vendor_ssr_diag init unix_stream_socket { connectto }
+allow vold { gx_fpd_exec } file { getattr }
+allow vold { sysfs_mmc_host } file { write }
+allow vold_prepare_subdirs { gx_fpd_exec } file { getattr }
