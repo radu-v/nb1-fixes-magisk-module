@@ -1,23 +1,47 @@
 allow { adbd adbroot apexd audioserver bootstat boringssl_self_test bpfloader cameraserver credstore derive_sdk drmserver flags_health_check fsck fsverity_init gpuservice gsid hal_allocator_default hwservicemanager idmap incidentd installd iorapd keystore lmkd logd mediaextractor mediametrics mediaserver mediaswcodec netd otapreopt_slot recovery_persist recovery_refresh servicemanager statsd storaged surfaceflinger system_suspend tombstoned toolbox toolbox traced traced_probes tzdatacheck update_verifier usbd vdc vold vold_prepare_subdirs wificond zygote } gx_fpd_exec file { read getattr }
 allow { bootstat vold_prepare_subdirs installd migrate_legacy_obb_data } gx_fpd_exec file { read getattr }
+allow adbd oemfs dir { search }
 allow audio_sysfs sysfs filesystem { associate }
+allow auditctl gx_fpd_exec file { getattr read }
+allow blkid_untrusted gx_fpd_exec file { getattr read }
+allow bootanim { gx_fpd_exec userspace_reboot_exported_prop } file { read }
+allow bootanim gx_fpd_exec file { getattr read }
+allow bootanim userspace_reboot_exported_prop file { getattr open }
 allow dex2oat { gx_fpd_exec } file { read getattr }
+allow fsck_untrusted gx_fpd_exec file { getattr read }
+allow gatekeeperd gx_fpd_exec file { getattr read }
 allow hal_audio_default { audio_sysfs } dir { search }
-allow hal_audio_default { sysfs } file { getattr }
+allow hal_audio_default { audio_sysfs sysfs } file { getattr open read write }
 allow hal_graphics_composer_default { mnt_vendor_file } dir { getattr }
-allow qti_init_shell { proc_extra_free_kbytes sysfs_io_sched_tuneable } file { write }
+allow hal_thermal_default servicemanager binder { call }
+allow iorap_inode2filename { network_watchlist_data_file snapshotctl_log_data_file stats_data_file update_engine_log_data_file vendor_overlay_file } dir { read }
+allow iorap_inode2filename gx_fpd_exec file { read }
+allow iorap_prefetcherd gx_fpd_exec file { getattr read }
+allow kernel debugfs_wlan dir { search }
+allow profman gx_fpd_exec file { read }
+allow qti_init_shell { proc_extra_free_kbytes sysfs_io_sched_tuneable } file { open write }
+allow qti_init_shell sysfs file { setattr }
 allow radio { qcom_ims_prop } file { open read getattr }
 allow rmt_storage { sysfs_data } file { open read }
-allow sensors { proc_fih } file { getattr read }
-allow thermal-engine { sysfs } file { open read }
+allow sdcardd gx_fpd_exec file { getattr read }
+allow sensors { proc_fih } file { getattr read open }
+allow sgdisk gx_fpd_exec file { getattr read }
+allow shell gx_fpd_exec file { getattr read }
+allow system_server { gx_fpd_exec userspace_reboot_config_prop userspace_reboot_exported_prop exported_camera_prop userspace_reboot_exported_prop } file { getattr open read }
+allow system_server exported_camera_prop file { getattr }
+allow thermal-engine { sysfs } file { getattr open read }
 allow ueventd { audio_sysfs } dir { relabelto search }
 allow ueventd { audio_sysfs } file { relabelto }
+allow vendor_dpmd gx_fpd_exec file { getattr read }
 allow vendor_init { system_file } dir { add_name write }
-allow vendor_init { vendor_qvrd_data_file } dir { create getattr }
-allow vendor_ssr_diag { property_socket } file { write }
-allow vendor_ssr_diag { property_socket } sock_file { write }
+allow vendor_init { vendor_qvrd_data_file nfc_data_file } dir { create getattr open read setattr }
+allow vendor_init nfc_data_file dir { ioctl }
+allow vendor_ssr_diag { ctl_start_prop vendor_default_prop } property_service { set }
+allow vendor_ssr_diag { property_socket } { file sock_file } { write }
 allow vendor_ssr_diag { sysfs sysfs_data } file { open read }
 allow vendor_ssr_diag init unix_stream_socket { connectto }
-allow vold { gx_fpd_exec } file { getattr }
+allow vold { gx_fpd_exec } file { getattr read }
 allow vold { sysfs_mmc_host } file { write }
-allow vold_prepare_subdirs { gx_fpd_exec } file { getattr }
+allow vold_prepare_subdirs { gx_fpd_exec } file { getattr read }
+allow zygote exported_camera_prop file { getattr open read }
+allow zygote system_file dir { write }
