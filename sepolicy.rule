@@ -16,7 +16,7 @@ allow mediaserver exported_camera_prop file { read }
 allow adbd oemfs dir { search }
 allow qti_init_shell sysfs file { setattr }
 allow system_server surfaceflinger_exec file { read open getattr }
-allow hal_nfc_default nfc_vendor_data_file dir { search }
+allow hal_nfc_default nfc_vendor_data_file dir { search read write open getattr }
 allow nfc nfc_vendor_data_file dir { search }
 allow system_app hal_vibrator_default binder { call }
 allow system_app proc_vmallocinfo file { read }
