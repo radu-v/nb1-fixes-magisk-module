@@ -1,5 +1,6 @@
 allow fsck overlayfs_file dir { getattr }
 allow hal_power_default sysfs file { read open }
+allow hal_power_stats_default sysfs_power_stats file { getattr open read }
 allow radio cnd binder { call }
 allow system_server proc_fih dir { search }
 allow toolbox block_device blk_file { read open write }
@@ -18,8 +19,10 @@ allow qti_init_shell sysfs file { setattr }
 allow system_server surfaceflinger_exec file { read open getattr }
 allow hal_nfc_default nfc_vendor_data_file dir { add_name getattr open read search write }
 allow hal_nfc_default nfc_vendor_data_file file { create open read write }
+allow hal_nfc_default default_android_hwservice hwservice_manager { find }
 allow nfc nfc_vendor_data_file dir { add_name open read write search }
 allow nfc nfc_vendor_data_file file { create open read write }
 allow system_app hal_vibrator_default binder { call }
 allow system_app proc_vmallocinfo file { read }
 allow system_app sysfs_zram dir { search }
+allow gmscore_app hal_memtrack_hwservice hwservice_manager { find }
